@@ -1,0 +1,39 @@
+@font-face {
+	font-family: 'Roboto';
+	src: url('../assets/fonts/Roboto-Regular.ttf');
+	font-weight: 400;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Roboto';
+	src: url('../assets/fonts/Roboto-Bold.ttf');
+	font-weight: 700;
+	font-display: swap;
+}
+
+body {
+	margin: 0;
+	padding: 4rem;
+	font-family: 'Roboto', Arial, Helvetica, sans-serif;
+	color: white;
+	background-color: #263238;
+}
+
+.bar-chart__bar,
+.bubble-chart__bubble {
+	fill: #fbc02d;
+}
+
+.bubble__text {
+	fill: #263238;
+}
+
+.bar-chart__bar:hover,
+.bubble-chart__bubble:hover .bubble-chart__bubble-circle {
+	fill: #fff263
+}
+
+.bar-chart__label {
+	fill: white;
+}

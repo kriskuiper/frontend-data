@@ -1,0 +1,11 @@
+# Node modules
+node_modules
+
+# Exclude environment vars
+.env
+
+# Exclude public scripts
+public/scripts
+
+# Exclude MacOS native files
+.DS_Store

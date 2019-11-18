@@ -1,0 +1,32 @@
+{
+  "name": "functional-programming",
+  "version": "1.0.0",
+  "description": "Repo for the Functional Programming course of Information Design TT",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kriskuiper/functional-programming.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kriskuiper/functional-programming/issues"
+  },
+  "homepage": "https://github.com/kriskuiper/functional-programming#readme",
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "rimraf": "^3.0.0",
+    "rollup": "^1.26.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0"
+  },
+  "dependencies": {
+    "d3": "^5.12.0"
+  }
+}

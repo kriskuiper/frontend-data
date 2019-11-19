@@ -8,7 +8,7 @@ export default `
 	PREFIX gn: <http://www.geonames.org/ontology#>
 	PREFIX wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#>
 
-	SELECT ?title ?religion ?religionLabel ?year ?country ?countryLabel ?lat ?long WHERE {
+	SELECT ?title ?religion ?objectLabel ?religionLabel ?type ?country ?countryLabel ?lat ?long WHERE {
 		VALUES ?religionLabel {
 			"islamitisch"
 			"christelijk"
@@ -25,17 +25,16 @@ export default `
 			"tantristisch"
 		} .
 
+		?cho edm:isRelatedTo <https://hdl.handle.net/20.500.11840/termmaster2091> .
 		?cho dct:spatial ?place .
 		?cho dc:title ?title .
-		?cho dc:subject ?religion .
+		?cho edm:object ?object .
+		?object skos:prefLabel ?objectLabel .
 		?religion skos:prefLabel ?religionLabel .
 		?place skos:exactMatch/gn:parentCountry ?country .
 		?country wgs84:lat ?lat .
 		?country wgs84:long ?long .
 		?country gn:name ?countryLabel .
-		?cho dct:created ?date .
-		BIND (xsd:gYear(?date) AS ?year) .
-		FILTER (?year > xsd:gYear("1")) .
-		FILTER langMatches(lang(?title), "ned") .
+		FILTER langMatches(lang(?title), "ned").
 	}
 `

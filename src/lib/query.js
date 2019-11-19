@@ -35,7 +35,7 @@ export default `
 		?country gn:name ?countryLabel .
 		?cho dct:created ?date .
 		BIND (xsd:gYear(?date) AS ?year) .
-		FILTER (?year > xsd:gYear("1000")) .
-		FILTER langMatches(lang(?title), "ned").
-	} GROUP BY ?date ?countryLabel ?lat ?long LIMIT 10
+		FILTER (?year > xsd:gYear("1")) .
+		FILTER langMatches(lang(?title), "ned") .
+	}
 `

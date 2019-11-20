@@ -4,8 +4,8 @@ export default function(data) {
 			title: item.title && item.title.value,
 			religion: item.religionLabel && item.religionLabel.value,
 			country: item.countryLabel && item.countryLabel.value,
-			lat: item.lat && item.lat.value,
-			long: item.long && item.long.value
+			lat: item.lat && Number(item.lat.value),
+			long: item.long && Number(item.lat.value)
 		}))
 		.reduce((countries, currentItem) => {
 			// Get the country and religion of the currentItem
@@ -43,6 +43,8 @@ function find(array, key) {
 function generateDefaultCountry(item) {
 	return {
 		name: item.country,
+		lat: item.lat,
+		long: item.long,
 		results: [item],
 		religions: {}
 	}

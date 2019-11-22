@@ -1,12 +1,17 @@
-export default function(data) {
+import getGeoCountries from './get-geo-countries'
+
+export default async function(data) {
+	const coords = await getGeoCountries()
+
 	return data
-		.map(item => ({
-			title: item.title && item.title.value,
-			religion: item.religionLabel && item.religionLabel.value,
-			country: item.countryLabel && item.countryLabel.value,
-			lat: item.lat && Number(item.lat.value),
-			long: item.long && Number(item.lat.value)
-		}))
+		.map(item => {
+			return {
+				title: item.title && item.title.value,
+				religion: item.religionLabel && item.religionLabel.value,
+				country: item.countryLabel && item.countryLabel.value,
+				coords: item.countryLabel && coords[item.countryLabel.value]
+			}
+		})
 		.reduce((countries, currentItem) => {
 			// Get the country and religion of the currentItem
 			const countryName = currentItem.country
@@ -43,8 +48,8 @@ function find(array, key) {
 function generateDefaultCountry(item) {
 	return {
 		name: item.country,
-		lat: item.lat,
-		long: item.long,
+		lat: Number(item.coords.lat),
+		long: Number(item.coords.long),
 		results: [item],
 		religions: {}
 	}

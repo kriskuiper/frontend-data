@@ -2,7 +2,6 @@ import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js'
 import { select } from 'd3'
 
 import getCleanData from './lib/get-clean-data'
-import generateDots from './lib/generate-dots'
 
 // Have to use an iife here because we can't use await without async
 (async () => {
@@ -13,8 +12,37 @@ import generateDots from './lib/generate-dots'
 		style: 'mapbox://styles/mapbox/streets-v9',
 	})
 	const container = map.getCanvasContainer()
-	const svg = select(container).append('g')
+	const svg = select(container)
+		.append('svg')
+		.append('g')
 	const data = await getCleanData()
 
-	generateDots(map, data, svg)
+	svg
+		.selectAll('circle')
+		.data(data)
+		.enter()
+		.append('circle')
+		.attr('cx', d => coords(d).x)
+		.attr('cy', d => coords(d).y)
+
+	update()
+
+	map
+		.on('viewreset', () => update())
+		.on('move', () => update())
+		.on('moveend', () => update())
+		.on('zoom', () => update())
+
+	function update() {
+		svg.selectAll('circle')
+			.attr('cx', d => coords(d).x)
+			.attr('cy', d => coords(d).y)
+			.attr('r', '4')
+			.attr('fill', 'red')
+			.attr('data-country', d => d.name)
+	}
+
+	function coords({ long, lat }) {
+		return map.project(new mapboxgl.LngLat(long, lat))
+	}
 })()

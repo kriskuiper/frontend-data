@@ -4,7 +4,8 @@ import { select } from 'd3'
 import getCleanData from './lib/get-clean-data'
 import renderOptions from './lib/render-options'
 import getUniqueReligions from './lib/get-unique-religions'
-import termmasters from './lib/termmasters'
+import transformReligionsForCountry from './lib/transformers/transform-religions-for-country'
+import termmasters from '../data/termmasters'
 
 // Have to use an iife here because we can't use await without async
 (async () => {
@@ -30,6 +31,7 @@ import termmasters from './lib/termmasters'
 		.data(data)
 		.enter()
 		.append('circle')
+		.on('click', showCountryInfo)
 		.attr('cx', d => coords(d).x)
 		.attr('cy', d => coords(d).y)
 		.attr('tabindex', '1')
@@ -59,5 +61,18 @@ import termmasters from './lib/termmasters'
 
 	function coords({ long, lat }) {
 		return map.project(new mapboxgl.LngLat(long, lat))
+	}
+
+	function showCountryInfo({ long, lat, religions }) {
+		// Get a good overview of the religions of each country
+		console.log(transformReligionsForCountry(religions))
+
+		// Put the data into the barchart
+
+		return map.flyTo({
+			center: [long, lat],
+			zoom: 4,
+			speed: 0.8
+		})
 	}
 })()

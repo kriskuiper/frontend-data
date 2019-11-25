@@ -50,6 +50,14 @@ circle:focus {
 	stroke-width: 20px;
 }
 
+.circle__tooltip {
+	font-size: 0.675rem;
+	background: #232F34;
+	border-radius: 8px;
+	color: white;
+	padding: 1em;
+}
+
 /* Filters styles */
 .app-filters {
 	padding: 2rem;

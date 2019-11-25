@@ -1,5 +1,6 @@
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js'
 import { select } from 'd3'
+import tip from 'd3-tip'
 
 import getCleanData from './lib/get-clean-data'
 import renderOptions from './lib/render-options'
@@ -23,15 +24,24 @@ import termmasters from '../data/termmasters'
 	const svg = select(container)
 		.append('svg')
 		.append('g')
+	const toolTip = tip()
+		.attr('class', 'circle__tooltip')
+		.offset([-8, 0])
+		.html(d => `${d.name}: ${d.results.length} objects`)
 	const data = await getCleanData()
 	const uniqueReligions = getUniqueReligions(data)
 
+	svg.call(toolTip)
 	svg
 		.selectAll('circle')
 		.data(data)
 		.enter()
 		.append('circle')
 		.on('click', showCountryInfo)
+		.on('mouseover', toolTip.show)
+		.on('mouseout', toolTip.hide)
+		.on('focus', toolTip.show)
+		.on('blur', toolTip.hide)
 		.attr('cx', d => coords(d).x)
 		.attr('cy', d => coords(d).y)
 		.attr('tabindex', '1')
@@ -68,6 +78,7 @@ import termmasters from '../data/termmasters'
 		console.log(transformReligionsForCountry(religions))
 
 		// Put the data into the barchart
+
 
 		return map.flyTo({
 			center: [long, lat],

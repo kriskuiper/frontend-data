@@ -9,8 +9,34 @@
 	<title>Frontend Data</title>
 </head>
 <body>
-	<h1>Hello world!</h1>
 	<div id="map"></div>
+	<aside class="app-filters">
+		<h2 class="app-filters__title">Filter resultaten</h2>
+		<form class="app-form">
+			<div class="app-form__input-group">
+				<label for="object-type">Filter op objecttype</label>
+				<select name="object-type" id="object-type">
+					<option
+						selected
+						disabled
+					>
+						Kies een objecttype
+					</option>
+				</select>
+			</div>
+			<div class="app-form__input-group">
+				<label for="religion">Filter op religie</label>
+				<select name="religion" id="religion">
+					<option
+						selected
+						disabled
+					>
+						Kies een religie
+					</option>
+				</select>
+			</div>
+		</form>
+	</aside>
 	<script src="scripts/bundle.js"></script>
 </body>
 </html>

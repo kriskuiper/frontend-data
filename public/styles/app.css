@@ -44,7 +44,9 @@ circle {
 	cursor: pointer;
 }
 
-circle:hover {
+circle:hover,
+circle:focus {
+	outline: 0;
 	stroke-width: 20px;
 }
 
@@ -61,6 +63,10 @@ circle:hover {
 
 label, select {
 	display: block;
+}
+
+.app-form {
+	margin-bottom: 2rem;
 }
 
 .app-form__input-group {
@@ -88,4 +94,22 @@ select {
 	background-position: right .7em top 50%, 0 0;
 	background-size: 1.25em auto, 100%;
 	color: white;
+}
+
+button {
+	padding: 0.825rem;
+	font-size: 0.825rem;
+	background: transparent;
+	color: white;
+	border: 1px solid white;
+	cursor: pointer;
+	text-transform: uppercase;
+	transition: color .2s ease;
+	transition: background-color .2s ease;
+}
+
+button:hover,
+button:focus {
+	color: black;
+	background: white;
 }

@@ -12,21 +12,24 @@
 	<div id="map"></div>
 	<aside class="app-filters">
 		<h2 class="app-filters__title">Filter resultaten</h2>
-		<form class="app-form">
+		<form class="app-form" id="object-type-form">
 			<div class="app-form__input-group">
 				<label for="object-type">Filter op objecttype</label>
-				<select name="object-type" id="object-type">
+				<select name="object-type" id="object-type" required>
 					<option
 						selected
 						disabled
 					>
-						Kies een objecttype
+						Kies een type
 					</option>
 				</select>
 			</div>
+			<button type="submit">Toepassen</button>
+		</form>
+		<form class="app-form" id="religion-form">
 			<div class="app-form__input-group">
 				<label for="religion">Filter op religie</label>
-				<select name="religion" id="religion">
+				<select name="religion" id="religion" required>
 					<option
 						selected
 						disabled
@@ -35,6 +38,7 @@
 					</option>
 				</select>
 			</div>
+			<button type="submit">Toepassen</button>
 		</form>
 	</aside>
 	<script src="scripts/bundle.js"></script>

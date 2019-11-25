@@ -4,7 +4,7 @@ import { select } from 'd3'
 import getCleanData from './lib/get-clean-data'
 import renderOptions from './lib/render-options'
 import getUniqueReligions from './lib/get-unique-religions'
-import termmasters from '../data/termmasters'
+import termmasters from './lib/termmasters'
 
 // Have to use an iife here because we can't use await without async
 (async () => {

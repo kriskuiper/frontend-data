@@ -9,7 +9,11 @@ import getCleanData from './lib/get-clean-data'
 
 	const map = new mapboxgl.Map({
 		container: 'map',
-		style: 'mapbox://styles/mapbox/streets-v9',
+		style: 'mapbox://styles/kriskuiper/ck3e932ds01541cpt9qg6zxac',
+		zoom: 3,
+		minZoom: 3,
+		maxZoom: 10,
+		pitch: 30
 	})
 	const container = map.getCanvasContainer()
 	const svg = select(container)
@@ -37,8 +41,11 @@ import getCleanData from './lib/get-clean-data'
 		svg.selectAll('circle')
 			.attr('cx', d => coords(d).x)
 			.attr('cy', d => coords(d).y)
-			.attr('r', '4')
-			.attr('fill', 'red')
+			.attr('r', d => {
+				const radius = Math.sqrt(d.results.length)
+
+				return radius * Math.PI
+			})
 			.attr('data-country', d => d.name)
 	}
 

@@ -2,6 +2,9 @@ import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js'
 import { select } from 'd3'
 
 import getCleanData from './lib/get-clean-data'
+import renderOptions from './lib/render-options'
+import getUniqueReligions from './lib/get-unique-religions'
+import termmasters from '../data/termmasters'
 
 // Have to use an iife here because we can't use await without async
 (async () => {
@@ -20,6 +23,7 @@ import getCleanData from './lib/get-clean-data'
 		.append('svg')
 		.append('g')
 	const data = await getCleanData()
+	const uniqueReligions = getUniqueReligions(data)
 
 	svg
 		.selectAll('circle')
@@ -28,6 +32,10 @@ import getCleanData from './lib/get-clean-data'
 		.append('circle')
 		.attr('cx', d => coords(d).x)
 		.attr('cy', d => coords(d).y)
+		.attr('tabindex', '1')
+
+	renderOptions('object-type', termmasters)
+	renderOptions('religion', uniqueReligions)
 
 	update()
 

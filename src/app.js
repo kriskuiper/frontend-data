@@ -36,7 +36,7 @@ import termmasters from '../data/termmasters'
 	svg.call(toolTip)
 	svg
 		.selectAll('circle')
-		.data(data)
+		.data(data, d => d.name)
 		.enter()
 		.append('circle')
 		.on('click', showCountryInfo)
@@ -50,6 +50,14 @@ import termmasters from '../data/termmasters'
 
 	renderOptions('object-type', termmasters)
 	renderOptions('religion', uniqueReligions)
+
+	document.getElementById('object-type')
+		.addEventListener('change', updateDotsForObjectType)
+
+	document.getElementById('religion')
+		.addEventListener('change', (event) => {
+			return updateDotsForReligions(event.target.value, data)
+		})
 
 	update()
 
@@ -68,7 +76,19 @@ import termmasters from '../data/termmasters'
 
 				return radius * Math.PI
 			})
-			.attr('data-country', d => d.name)
+	}
+
+	function updateMapWithTransition() {
+		svg.selectAll('circle')
+			.transition()
+			.duration(200)
+			.attr('cx', d => coords(d).x)
+			.attr('cy', d => coords(d).y)
+			.attr('r', d => {
+				const radius = Math.sqrt(d.results.length)
+
+				return radius * Math.PI
+			})
 	}
 
 	function coords({ long, lat }) {
@@ -78,6 +98,8 @@ import termmasters from '../data/termmasters'
 	function showCountryInfo({ long, lat, religions }) {
 		renderBarChart(transformReligionsForCountry(religions))
 
+		console.log('Doing things')
+
 		return map.flyTo({
 			center: [long, lat],
 			zoom: 4,
@@ -85,5 +107,56 @@ import termmasters from '../data/termmasters'
 		})
 	}
 
+	async function updateDotsForObjectType(event) {
+		const termmaster = event.target.value
+		const updatedData = await getCleanData(termmaster)
+
+		updateDots(updatedData)
+		updateMapWithTransition()
+
+		return updatedData
+	}
+
+	function updateDotsForReligions(religion, data) {
+		const filteredData = data.filter(item => {
+			return item.religions[religion]
+		})
+
+		updateDots(filteredData)
+		updateMapWithTransition()
+
+		return filteredData
+	}
+
+	function updateDots(data) {
+		const circles = svg.selectAll('circle')
+			.data(data, d => d.name)
+			.join(
+				enter => {
+					enter.append('circle')
+						.on('click', showCountryInfo)
+						.on('mouseover', toolTip.show)
+						.on('mouseout', toolTip.hide)
+						.on('focus', toolTip.show)
+						.on('blur', toolTip.hide)
+						.attr('data-key', (d, i) => i)
+						.attr('cx', d => coords(d).x)
+						.attr('cy', d => coords(d).y)
+				},
+				update => {
+					update.select('circle')
+						.attr('r', d => {
+							const radius = Math.sqrt(d.results.length)
+
+							return radius * Math.PI
+						})
+
+				}
+			)
+
+		return circles
+	}
+
 
 })()
+

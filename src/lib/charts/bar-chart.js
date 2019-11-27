@@ -40,7 +40,7 @@ export default function(data) {
 function renderBarChart({ container, width, height, margin, scaleX }, data) {
 	const helperText = document.getElementById('helper-text')
 
-	container.removeChild(helperText)
+	helperText.textContent = 'Ga met je muis over de grafiek heen om het aantal objecten per religie te zien.'
 	container.setAttribute('data-rendered', true)
 
 	const barChart = select(container)

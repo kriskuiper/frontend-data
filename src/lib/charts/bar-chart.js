@@ -93,7 +93,16 @@ function updateBarChart({ scaleX, margin }, data) {
 			exit => exit.remove()
 		)
 
-	// Alter x axis position based on the amount of bar charts
+	/*
+		Alter the position of the x axis based on the amount of bars currently in the
+		graph.
+
+		1. Get the amount of bars in the graph
+		2. Transform the y value of the x axis by multiplying the amount of
+			 bars with the barSpacing and add some extra space of 10px
+
+		TODO: Refactor this in the future
+	*/
 	const nthBarNodes = document.getElementsByClassName('bar-chart__bar').length
 
 	select('.bar-chart__x-axis')

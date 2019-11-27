@@ -51,7 +51,7 @@ circle:focus {
 	stroke-width: 20px;
 }
 
-.circle__tooltip {
+.circle__tooltip, .bar__tooltip {
 	font-size: 0.675rem;
 	background: #232F34;
 	border-radius: 8px;

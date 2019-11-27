@@ -1,4 +1,5 @@
 import { select, scaleLinear, max, axisBottom } from 'd3'
+import tip from 'd3-tip'
 
 /**
 	Thanks to Nicholas H: https://bl.ocks.org/syncopika/f1c9036b0deb058454f825238a95b6be
@@ -59,6 +60,11 @@ function renderBarChart({ container, width, height, margin, scaleX }, data) {
 function updateBarChart({ scaleX, margin }, data) {
 	const barHeight = 20
 	const barSpacing = barHeight + 5
+	const colors = ['#7e57c2', '#b085f5', '#d1c4e9', '#512da8', '#9c27b0']
+	const toolTip = tip()
+		.attr('class', 'bar__tooltip')
+		.offset([-4, 0])
+		.html(d => `${d.name}: ${d.amount}`)
 
 	scaleX.domain([0, max(data, d => d.amount)])
 	select('.bar-chart__x-axis')
@@ -69,12 +75,16 @@ function updateBarChart({ scaleX, margin }, data) {
 		.data(data, d => `${d.name} - ${d.amount}: ${Date.now()}`)
 		.join(
 			enter => {
-				return enter.append('rect')
+				enter.append('rect')
+					.call(toolTip)
 					.attr('x', margin.left)
 					.attr('y', (d, i) => i * barSpacing)
 					.attr('width', (d) => scaleX(d.amount))
 					.attr('height', barHeight)
 					.attr('class', 'bar-chart__bar')
+					.style('fill', (d, i) => colors[i])
+					.on('mouseover', toolTip.show)
+					.on('mouseout', toolTip.hide)
 			},
 			update => {
 				return update.select('rect')

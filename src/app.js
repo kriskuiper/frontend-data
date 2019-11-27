@@ -95,7 +95,8 @@ import termmasters from './data/termmasters'
 		return map.project(new mapboxgl.LngLat(long, lat))
 	}
 
-	function showCountryInfo({ long, lat, religions }) {
+	function showCountryInfo({ name, long, lat, religions }) {
+		alterContainerTitle(name)
 		renderBarChart(transformReligionsForCountry(religions))
 
 		return map.flyTo({
@@ -148,13 +149,18 @@ import termmasters from './data/termmasters'
 
 							return radius * Math.PI
 						})
-
 				}
 			)
 
 		return circles
 	}
 
-
 })()
 
+function alterContainerTitle(name) {
+	const titleNode = document.querySelectorAll('.app-filters__title')[1]
+
+	titleNode.textContent = `De objecten in ${name}, verdeeld per religie`
+
+	return titleNode
+}

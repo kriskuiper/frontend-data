@@ -7,7 +7,7 @@ import renderOptions from './lib/render-options'
 import getUniqueReligions from './lib/get-unique-religions'
 import transformReligionsForCountry from './lib/transformers/transform-religions-for-country'
 import renderBarChart from './lib/charts/bar-chart'
-import termmasters from '../data/termmasters'
+import termmasters from './data/termmasters'
 
 // Have to use an iife here because we can't use await without async
 (async () => {

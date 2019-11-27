@@ -23,17 +23,17 @@ export default function(data) {
 			top: 20,
 			right: 20,
 			bottom: 40,
-			left: 20
+			left: 7
 		},
 		scaleX: scaleLinear()
-			// Actually this has to be the config's width, but now it's hardcoded so it works for now
+			// Actually this has to be the config's width or something, but now it's hardcoded so it works for now
 			// have to refactor this in the future though...
-			.range([0, 350])
+			.range([0, 350 - 15])
 	}
 
 	return !isRendered
 		? renderBarChart(config, data)
-		: updateBarChart(config.scaleX, data)
+		: updateBarChart(config, data)
 }
 
 function renderBarChart({ container, width, height, margin, scaleX }, data) {
@@ -43,34 +43,34 @@ function renderBarChart({ container, width, height, margin, scaleX }, data) {
 	container.setAttribute('data-rendered', true)
 
 	const barChart = select(container)
+		.append('svg')
 		.attr('width', width)
 		.attr('height', height)
-		.append('svg')
 		.attr('class', 'bar-chart')
 		.attr('transform', `translate(0, ${margin.top})`)
 
-	const xAxis = axisBottom(scaleX)
-
 	barChart.append('g')
 		.attr('class', 'bar-chart__x-axis')
-		.attr('transform', `translate(0, ${height})`)
-		.call(xAxis)
+		.call(axisBottom(scaleX).ticks(10))
 
-	return updateBarChart(scaleX, data)
+	return updateBarChart({ scaleX, margin }, data)
 }
 
-function updateBarChart(scaleX, data) {
-	scaleX.domain([0, max(data, d => d.amount)])
-
+function updateBarChart({ scaleX, margin }, data) {
 	const barHeight = 20
 	const barSpacing = barHeight + 5
 
-	return select('.bar-chart').selectAll('rect')
-		.data(data)
+	scaleX.domain([0, max(data, d => d.amount)])
+	select('.bar-chart__x-axis')
+		.call(axisBottom(scaleX))
+
+	const updatedBarChart = select('.bar-chart').selectAll('rect')
+		// Use Date.now to generate a entirely unique key
+		.data(data, d => `${d.name} - ${d.amount}: ${Date.now()}`)
 		.join(
 			enter => {
 				return enter.append('rect')
-					.attr('x', 0)
+					.attr('x', margin.left)
 					.attr('y', (d, i) => i * barSpacing)
 					.attr('width', (d) => scaleX(d.amount))
 					.attr('height', barHeight)
@@ -82,4 +82,12 @@ function updateBarChart(scaleX, data) {
 			},
 			exit => exit.remove()
 		)
+
+	// Alter x axis position based on the amount of bar charts
+	const nthBarNodes = document.getElementsByClassName('bar-chart__bar').length
+
+	select('.bar-chart__x-axis')
+		.attr('transform', `translate(${margin.left}, ${(nthBarNodes * barSpacing) + 10})`)
+
+	return updatedBarChart
 }

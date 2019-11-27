@@ -4,7 +4,7 @@
   "description": "Repo for the Functional Programming course of Information Design TT",
   "main": "index.js",
   "scripts": {
-    "build": "rollup -c",
+		"build": "rsync -rm src/data public && rollup -c",
     "dev": "rollup -c --watch"
   },
   "repository": {

@@ -98,8 +98,6 @@ import termmasters from '../data/termmasters'
 	function showCountryInfo({ long, lat, religions }) {
 		renderBarChart(transformReligionsForCountry(religions))
 
-		console.log('Doing things')
-
 		return map.flyTo({
 			center: [long, lat],
 			zoom: 4,

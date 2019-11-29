@@ -45,6 +45,13 @@ body {
 	height: 100%;
 }
 
+.note {
+	font-size: 0.825rem;
+	margin-bottom: 1rem;
+	line-height: 1.5;
+	font-style: italic;
+}
+
 circle {
 	fill: rgba(77, 5, 232, .8);
 	stroke: white;

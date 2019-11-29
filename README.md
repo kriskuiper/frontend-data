@@ -71,13 +71,19 @@ export default function(termmaster) {
 
 This query gets all raw data which we clean hereafter, again using Javascript.
 
-[Read all about cleaning very very ugly NMVW data](https://github.com/kriskuiper/frontend-data/wiki/Cleaning-the-data-(again))
+[Read all about cleaning data](https://github.com/kriskuiper/frontend-data/wiki/Cleaning-the-data-(again))
+
+## Shortcuts were taken to finish the project in time
+In the end some shortcuts were taken to be able to finish the project in time. This made the UX lack a little in some areas, for example:
+* [The barchart should have legends to show how many objects each religion has](link-to-ticket) *Right now I use a tooltip for this that gets shown on hover*
+* [Some of the code definately needs refactoring]() *Some code is just hacked together to make it work, I'm very sorry to anyone who reads some of the code and to my future self already*
+* [When filtering on religion, there's only checked if a country has a specific religion, not how many objects of that religion exist in a country]() *Ideally the objects in a country should be filtered on a selected religion and the chart should show how many objects are left per religion*
 
 ## Acknowlegdements
 I want to thank the following people who helped me when I was struggling with the project:
 * [Tim Ruiterkamp](https://github.com/timruiterkamp) *Used his frontend-data repo for reference sometimes*
 * [Chazz Mannering]() *Helped me understanding the D3 enter-update-exit pattern* 
-* [Wiebe Kremer]() *Helped me debugging the bar-chart update pattern (yes, I had to use a 'key' for specificity issues)* 
+* [Wiebe Kremer]() *Helped me debugging the bar-chart update pattern (yes, I had to use a 'key' for specificity issues)*
 
 ## Examples and docs used
 * [Tim Ruiterkamp's frontend-data repo](https://github.com/timruiterkamp/frontend-data) *As stated earlier, used the repo as reference for things like plotting static dots on the Mapbox map*

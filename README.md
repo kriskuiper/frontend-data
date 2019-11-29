@@ -69,9 +69,22 @@ export default function(termmaster) {
 }
 ```
 
+The above query gets the following data:
+* Get all objects
+* Objects should have a religion bound to them
+* Objects should have a title bound to them
+* Objects should have a place
+* Place should have a parentCountry
+* Get the lat and long of the parentcountry
+
 This query gets all raw data which we clean hereafter, again using Javascript.
 
 [Read all about cleaning data](https://github.com/kriskuiper/frontend-data/wiki/Cleaning-the-data-(again))
+
+## D3 uses an update pattern
+To update the visualizations, D3 uses an update pattern. Since I use the latest version of D3 I decided to use the new update pattern using `node.join()` instead of just using .enter() multiple times. I do this because this pattern is much clearer to me and helped me understand how an update pattern works.
+
+[Read all about the update patterns](https://github.com/kriskuiper/frontend-data/wiki/Rendering-dots-on-a-Mapbox-map)
 
 ## Shortcuts were taken to finish the project in time
 In the end some shortcuts were taken to be able to finish the project in time. This made the UX lack a little in some areas, for example:

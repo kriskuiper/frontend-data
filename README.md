@@ -88,9 +88,9 @@ To update the visualizations, D3 uses an update pattern. Since I use the latest 
 
 ## Shortcuts were taken to finish the project in time
 In the end some shortcuts were taken to be able to finish the project in time. This made the UX lack a little in some areas, for example:
-* [The barchart should have legends to show how many objects each religion has](link-to-ticket) *Right now I use a tooltip for this that gets shown on hover*
-* [Some of the code definately needs refactoring]() *Some code is just hacked together to make it work, I'm very sorry to anyone who reads some of the code and to my future self already*
-* [When filtering on religion, there's only checked if a country has a specific religion, not how many objects of that religion exist in a country]() *Ideally the objects in a country should be filtered on a selected religion and the chart should show how many objects are left per religion*
+* The barchart should have legends to show how many objects each religion has *Right now I use a tooltip for this that gets shown on hover*
+* Some of the code definately needs refactoring *Some code is just hacked together to make it work, I'm very sorry to anyone who reads some of the code and to my future self already*
+* When filtering on religion, there's only checked if a country has a specific religion, not how many objects of that religion exist in a country *Ideally the objects in a country should be filtered on a selected religion and the chart should show how many objects are left per religion*
 
 ## Acknowlegdements
 I want to thank the following people who helped me when I was struggling with the project:
